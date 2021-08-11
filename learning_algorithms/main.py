@@ -50,10 +50,28 @@ def selection_sort(arr = []):
 
     return arr
 
+def check_sorted(arr):
+    """
+    配列がソートされているか確認する.
+    """
+
+    flag = True
+    for i in range(len(arr)):
+        for j in range(i+1, len(arr)):
+            if arr[i] > arr[j]:
+                flag = False
+            
+    if flag:
+        print("arr is sorted")
+    else:
+        print("arr is not sorted")
+    
+
 
 if __name__ == "__main__":
     arr = [random.randint(0, 100) for _ in range(10)]
     # arr = [i for i in range(4, -1, -1)]
 
-    ret = selection_sort(arr)
-    print(ret)
+    arr = selection_sort(arr)
+    check_sorted(arr)
+    
