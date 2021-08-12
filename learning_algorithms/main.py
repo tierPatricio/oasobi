@@ -8,11 +8,10 @@ def bubble_sort(arr = []):
     """
     バブルソートは右から左に向けて隣同士を比較していき,
     左端まで来た時にある数が最小の数であるとしてソート済みにする.
-    配列の要素数をNとした時,
-    1回目の外側のループでN-1回の比較を行う.
-    2回目の外側のループでN-2回の比較を行う.
-    N-1回目の外側の最後のループでN-(N-1)回の比較を行う.
-    したがって、(N-1)+(N-2)+...+{N-(N-1)} = {N*(N-1)}/2の比較回数
+    配列の要素数をNとした時, 
+    最悪計算量:(N-1)+(N-2)+...+{N-(N-1)} = {N^2 - N)} / 2 の比較回数
+    最良計算量:(N-1)+(N-2)+...+{N-(N-1)} = {N^2 - N)} / 2 の比較回数
+
     計算量はO(n^2)
     """
     
@@ -30,10 +29,8 @@ def selection_sort(arr = []):
     選択ソートは配列の中から最小の数を線形探索し,
     左端の数と最小の数を入れ替え、左端の数をソート済みにする.
     配列の要素数をNとした時,
-    1回目の外側のループでNー1回の線形探索を行う.
-    2回目の外側のループでNー2回の線形探索を行う.
-    N-1回目の外側の最後のループでN-(N-1)回の線形探索を行う.
-    したがって、(N-1)+(N-2)+...+{N-(N-1)} = {N*(N-1)}/2の比較回数
+    最悪計算量:(N-1)+(N-2)+...+{N-(N-1)} = (N^2 - N) / 2 の比較回数
+    最良計算量:(N-1)+(N-2)+...+{N-(N-1)} = (N^2 - N) / 2 の比較回数
     計算量はO(n^2)
     """
 
@@ -49,6 +46,32 @@ def selection_sort(arr = []):
         arr[sorted_idx], arr[min_idx] = arr[min_idx], arr[sorted_idx]
 
     return arr
+
+def insertion_sort(arr = []):
+    """
+    挿入ソートは初めに配列の左端をソート済にする.
+    未探索領域の左端を取り出して,ソート済の数と右端から順に、
+    自分より小さい数が現れるまで比較して交換する.
+    最悪計算量:1 + 2 + ... + N-1 = (N^2 - N) / 2 の比較回数
+    最良計算量:1 + 1 + ... + 1 = N - 1 の比較回数
+    計算量はO(n^2)
+    """
+
+    N = len(arr)
+    
+    for sorted_idx in range(0, N-1):
+        ref_idx = sorted_idx + 1 #未探索領域の左端の数字のインデックス
+
+        for idx in range(sorted_idx, -1, -1):
+            if arr[ref_idx] < arr[idx]:
+                arr[ref_idx], arr[idx] = arr[idx], arr[ref_idx]
+                ref_idx -= 1 #数字を入れ替えた場合参照するインデックスの更新
+            else: #自分より少ない数字が現れた時比較を停止
+                break
+
+    return arr
+    
+
 
 def check_sorted(arr):
     """
@@ -69,9 +92,9 @@ def check_sorted(arr):
 
 
 if __name__ == "__main__":
-    arr = [random.randint(0, 100) for _ in range(10)]
-    # arr = [i for i in range(4, -1, -1)]
+    # arr = [random.randint(0, 100) for _ in range(10)]
+    arr = [i for i in range(4, 0, -1)]
 
-    arr = selection_sort(arr)
-    check_sorted(arr)
+    arr = insertion_sort(arr)
+    # check_sorted(arr)
     
