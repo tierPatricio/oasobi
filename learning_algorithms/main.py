@@ -70,6 +70,41 @@ def insertion_sort(arr = []):
                 break
 
     return arr
+
+def heap_sort(arr = []):
+    """
+    ヒープソート:未実装
+    """
+    N = len(arr)
+    sorted_arr = [0 for i in range(N)] #整列済の配列
+    heap_arr = [0 for i in range(N)] #入力された配列と同じ要素数の空の配列
+
+    for i in range(N): #降順ヒープ木の構築
+        max_idx = -1
+        for j in range(i, N-1):
+            if arr[j] > arr[max_idx]:
+                max_idx = j
+        heap_arr[i] = arr[max_idx]
+        arr[max_idx] = 0
+    # print(heap_arr)
+
+    sorted_arr[0] = heap_arr[0] #ルートの値をソート済
+
+    heap_arr = heap_arr[1:] #ルートの値をヒープ木から除去
+    #ルートに最後のノードを移動
+    print(heap_arr)
+    heap_arr = heap_arr[-1]  heap_arr[1:N]
+    print(heap_arr)
+
+
+
+
+    for i in range(len(heap_arr)):
+        pass
+
+    
+
+    return arr
     
 
 
@@ -93,8 +128,9 @@ def check_sorted(arr):
 
 if __name__ == "__main__":
     # arr = [random.randint(0, 100) for _ in range(10)]
-    arr = [i for i in range(4, 0, -1)]
+    arr = [i for i in range(5, 0, -1)]
 
-    arr = insertion_sort(arr)
+    arr = heap_sort(arr)
+    # print(arr)
     # check_sorted(arr)
     
