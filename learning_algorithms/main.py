@@ -93,19 +93,61 @@ def heap_sort(arr = []):
     heap_arr = heap_arr[1:] #ルートの値をヒープ木から除去
     #ルートに最後のノードを移動
     print(heap_arr)
-    heap_arr = heap_arr[-1]  heap_arr[1:N]
+    heap_arr = heap_arr[-1],  heap_arr[1:N]
     print(heap_arr)
-
-
-
 
     for i in range(len(heap_arr)):
         pass
 
-    
+    return arr
+
+
+def merge_sort(arr = []):
+    """
+    マージソートはほぼ同じ長さの配列に分割していき,
+    分割出来ない程度の要素数になったところから,
+    分割した配列同士で小さい数順に並べるよう比較し統合する.
+    大きさnの問題Pを解くとき,大きさn/cの小さい問題P(n/c)に分解して解き,
+    その解を基にしてPの解を求める分割統治法の考え方
+    T(n) = O(1) ... (n = 1)
+    T(n) = a * T(n / c) + (b * n) ... (n > 1)
+    から,
+    T(n) = 2 * T(n/2) + (a + b) n ... (a,bは定数)
+    したがって計算量はO(n * logn)
+    """
+
+    N = len(arr)
+    if N > 1:
+
+        n = len(arr)//2 #分割する数
+        
+        left = merge_sort(arr[:n]) #引数にした配列の要素数が1になるまで再帰
+        right = merge_sort(arr[n:]) #引数にした配列の要素数が1になるまで再帰
+        
+        left_idx, right_idx, arr_idx = 0, 0, 0
+
+        #left_idx, right_idxがそれぞれ参照している配列の要素数を超えない間,繰り返し実行
+        #分割した2つの未整列の配列から小さい順に値を取り出して,整列済の配列に格納
+        while left_idx < len(left) and right_idx < len(right): 
+            if left[left_idx] < right[right_idx]:  
+                arr[arr_idx] = left[left_idx]
+                left_idx+=1
+            else:
+                arr[arr_idx] = right[right_idx]
+                right_idx+=1
+            arr_idx+=1
+
+        #片方の配列が全て整列済の配列に格納された時に,残ったもう片方の配列を整列済の配列に格納
+        while left_idx < len(left):
+            arr[arr_idx] = left[left_idx]
+            left_idx += 1
+            arr_idx += 1
+        while right_idx < len(right):
+            arr[arr_idx] = right[right_idx]
+            right_idx += 1
+            arr_idx += 1
 
     return arr
-    
 
 
 def check_sorted(arr):
@@ -128,9 +170,9 @@ def check_sorted(arr):
 
 if __name__ == "__main__":
     # arr = [random.randint(0, 100) for _ in range(10)]
-    arr = [i for i in range(5, 0, -1)]
+    arr = [i for i in range(4, 0, -1)]
 
-    arr = heap_sort(arr)
+    arr = merge_sort(arr)
     # print(arr)
     # check_sorted(arr)
     
