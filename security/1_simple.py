@@ -3,19 +3,21 @@ import sys, os, time
 
 
 """
-人同士のやりとりを想定
+人同士のやりとりを想定.
+各ユーザが持つ情報(変数)には直接アクセス出来ない.
+ユーザーが生成される場所にある変数は誰にでも読み取れる.
 
 sender:メッセージの送り手
 receiver:メッセージの受け手
 msg:通信路にあるメッセージ
 
 senderが持つメッセージmsgと, 通信路にあるメッセージmsgが同じ値だと内容が丸見え
-このコードだと通信内容は丸見え
+このコードだと通信内容は丸見え.
 """
 
 class User:
     def gen_msg(self):
-        self.msg = random.randint(1, 10000)
+        self.msg = "abc"
     
     def send(self):
         return self.msg
@@ -41,8 +43,8 @@ if __name__ == "__main__":
     receiver.receive(msg)
 
     #メッセージが正しく受け取れたか, 漏洩していないかを確認
-    print("communication channel :", msg)
     print("sender msg :", sender.get_msg())
+    print("communication channel :", msg)
     print("receiver msg :", receiver.get_msg())
 
 
